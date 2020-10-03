@@ -1,6 +1,6 @@
 # placement-site-crawler
 
-This script extracts new announcements and jobs from the placement website every 10 minutes and sends email, whatsapp message to the configured receivers.
+This script extracts new announcements and jobs from the placement website every 1 hour and sends email, whatsapp message to the configured receivers.
 
 ## How to run?
 ### `app.py` expects these environment variables:
@@ -36,7 +36,7 @@ Add these 2 additional environment variables in app's configuration:
 1. GOOGLE_CHROME_BIN - /app/.apt/usr/bin/google-chrome
 2. CHROMEDRIVER_PATH - /app/.chromedriver/bin/chromedriver
 
-After that create a Procfile with the worker process containing the command to run the script
+After that create a `Procfile` with the worker process containing the command to run the script
 ```
 worker: python app.py
 ```
