@@ -23,3 +23,20 @@ To run the script:
 ```sh
 python app.py
 ```
+
+## Deploying on Heroku
+To deploy on heroku we need to add these 2 buildpacks in our heroku app's settings:
+
+* [heroku-buildpack-google-chrome](https://github.com/heroku/heroku-buildpack-google-chrome)
+
+* [heroku-buildpack-chromedriver](https://github.com/heroku/heroku-buildpack-chromedriver)
+
+Add these 2 additional environment variables in app's configuration:
+
+1. GOOGLE_CHROME_BIN - /app/.apt/usr/bin/google-chrome
+2. CHROMEDRIVER_PATH - /app/.chromedriver/bin/chromedriver
+
+After that create a Procfile with the worker process containing the command to run the script
+```
+worker: python app.py
+```
