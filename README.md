@@ -1,6 +1,6 @@
 # placement-site-crawler
 
-This script extracts new announcements and jobs from the placement website every 10 minutes and sends email, whatsapp message to the configured receivers.
+This script extracts new announcements and jobs from the placement website every 1 hour and sends email, whatsapp message to the configured receivers.
 
 ## How to run?
 ### `app.py` expects these environment variables:
