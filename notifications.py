@@ -5,7 +5,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 def send_whatsapp_message(subject, msg):
-    API_KEY = os.getenv('WHATSAPP_APIKEY')
+    API_KEY = os.getenv('WHATSAPP_API_KEY')
     PHONE_NO = os.getenv('PHONE_NO')
     API_ENDPOINT = 'https://api.callmebot.com/whatsapp.php'
     msg = subject +':\n'+ msg
