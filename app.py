@@ -55,9 +55,12 @@ def jobs():
 
 if __name__ == "__main__":
     options = Options()
+    options.binary_location = os.getenv("GOOGLE_CHROME_BIN")
     options.headless = True
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-gpu')
     options.add_argument("--log-level=3")
-    browser = webdriver.Chrome(options=options)
+    browser = webdriver.Chrome(executable_path=os.getenv("CHROMEDRIVER_PATH"), options=options)
     browser.implicitly_wait(10)
     while(True):
         localtime_since_epoch = time.time()+19800
