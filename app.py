@@ -9,7 +9,7 @@ import db
 URL = "http://placement.bitmesra.ac.in/"
 EMAIL = os.getenv('EMAIL')
 PASSWORD = os.getenv('PASSWORD')
-TIME_INTERVAL = os.getenv('TIME_INTERVAL')
+TIME_INTERVAL = int(os.getenv('TIME_INTERVAL'))
 all_announcements = []
 all_jobs = []
 COUNT = 1
