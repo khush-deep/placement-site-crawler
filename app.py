@@ -1,12 +1,15 @@
+from threading import Condition
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from notifications import send_mail, send_whatsapp_message
 import os
 import time
+import db
 
 URL = "http://placement.bitmesra.ac.in/"
 EMAIL = os.getenv('EMAIL')
 PASSWORD = os.getenv('PASSWORD')
+TIME_INTERVAL = os.getenv('TIME_INTERVAL')
 all_announcements = []
 all_jobs = []
 COUNT = 1
@@ -63,6 +66,7 @@ if __name__ == "__main__":
     browser = webdriver.Chrome(executable_path=os.getenv("CHROMEDRIVER_PATH"), options=options)
     browser.implicitly_wait(10)
     while(True):
+        COUNT, all_announcements, all_jobs = db.get_data()
         localtime_since_epoch = time.time()+19800
         print("{}] {}".format(COUNT,time.strftime("%I:%M:%S %p", time.gmtime(localtime_since_epoch))))
         browser.get(URL)
@@ -70,5 +74,6 @@ if __name__ == "__main__":
         announcements()
         jobs()
         COUNT+=1
-        time.sleep(60*60)
+        db.store_data(COUNT, all_announcements, all_jobs)
+        time.sleep(TIME_INTERVAL*60)
     browser.close()

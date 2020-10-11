@@ -1,3 +1,5 @@
 selenium
 sendgrid
 requests
+pymongo
+dnspython
