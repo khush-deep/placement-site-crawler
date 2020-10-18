@@ -3,7 +3,6 @@
 This script extracts new announcements and jobs from the placement website after every set interval of time and sends email, Whatsapp message to the configured receivers.
 
 ## How to run?
-#
 `app.py` expects these environment variables:
 
 EMAIL, PASSWORD - The login credentials for placement site.
