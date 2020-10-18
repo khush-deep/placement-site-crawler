@@ -7,7 +7,6 @@ This script extracts new announcements and jobs from the placement website after
 `app.py` expects these environment variables:
 
 EMAIL, PASSWORD - The login credentials for placement site.
-TIME_INTERVAL - The time interval between two successive scraping
 #
 `notifications.py` expects these environmental variables:
 

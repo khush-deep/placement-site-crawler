@@ -1,4 +1,3 @@
-from threading import Condition
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from notifications import send_mail, send_whatsapp_message
@@ -9,10 +8,17 @@ import db
 URL = "http://placement.bitmesra.ac.in/"
 EMAIL = os.getenv('EMAIL')
 PASSWORD = os.getenv('PASSWORD')
-TIME_INTERVAL = int(os.getenv('TIME_INTERVAL'))
 all_announcements = []
 all_jobs = []
 COUNT = 1
+options = Options()
+options.binary_location = os.getenv("GOOGLE_CHROME_BIN")
+options.headless = True
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-gpu')
+options.add_argument("--log-level=3")
+browser = webdriver.Chrome(executable_path=os.getenv("CHROMEDRIVER_PATH"), options=options)
+browser.implicitly_wait(10)
 
 def login():
     email_element = browser.find_element_by_id('txtUsername')
@@ -56,24 +62,17 @@ def jobs():
         send_mail('New Job', msg)
     all_jobs.extend(new_jobs)
 
-if __name__ == "__main__":
-    options = Options()
-    options.binary_location = os.getenv("GOOGLE_CHROME_BIN")
-    options.headless = True
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-gpu')
-    options.add_argument("--log-level=3")
-    browser = webdriver.Chrome(executable_path=os.getenv("CHROMEDRIVER_PATH"), options=options)
-    browser.implicitly_wait(10)
-    while(True):
-        COUNT, all_announcements, all_jobs = db.get_data()
-        localtime_since_epoch = time.time()+19800
-        print("{}] {}".format(COUNT,time.strftime("%I:%M:%S %p", time.gmtime(localtime_since_epoch))))
-        browser.get(URL)
-        login()
-        announcements()
-        jobs()
-        COUNT+=1
-        db.store_data(COUNT, all_announcements, all_jobs)
-        time.sleep(TIME_INTERVAL*60)
+def main():
+    COUNT, all_announcements, all_jobs = db.get_data()
+    localtime_since_epoch = time.time()+19800
+    print("{}] {}".format(COUNT,time.strftime("%I:%M:%S %p", time.gmtime(localtime_since_epoch))))
+    browser.get(URL)
+    login()
+    announcements()
+    jobs()
+    COUNT+=1
+    db.store_data(COUNT, all_announcements, all_jobs)
     browser.close()
+
+if __name__ == "__main__":
+    main()
