@@ -8,9 +8,6 @@ import db
 URL = "http://placement.bitmesra.ac.in/"
 EMAIL = os.getenv('EMAIL')
 PASSWORD = os.getenv('PASSWORD')
-all_announcements = []
-all_jobs = []
-COUNT = 1
 options = Options()
 options.binary_location = os.getenv("GOOGLE_CHROME_BIN")
 options.headless = True
@@ -28,7 +25,7 @@ def login():
     password_element.send_keys(PASSWORD)
     signin_element.click()
 
-def announcements():
+def announcements(all_announcements):
     announce_button = browser.find_element_by_link_text('Announcement')
     announce_button.click()
     table = browser.find_element_by_id('tbodydetail')
@@ -42,7 +39,7 @@ def announcements():
         send_mail('New Announcement', msg)
     all_announcements.extend(new_announcements)
 
-def jobs():
+def jobs(all_jobs):
     jobs_button = browser.find_element_by_link_text('Jobs')
     jobs_button.click()
     table = browser.find_element_by_id('Joblist')
@@ -68,8 +65,8 @@ def main():
     print("{}] {}".format(COUNT,time.strftime("%I:%M:%S %p", time.gmtime(localtime_since_epoch))))
     browser.get(URL)
     login()
-    announcements()
-    jobs()
+    announcements(all_announcements)
+    jobs(all_jobs)
     COUNT+=1
     db.store_data(COUNT, all_announcements, all_jobs)
     # browser.close()
