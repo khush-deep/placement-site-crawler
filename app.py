@@ -72,7 +72,7 @@ def main():
     jobs()
     COUNT+=1
     db.store_data(COUNT, all_announcements, all_jobs)
-    browser.close()
+    # browser.close()
 
 if __name__ == "__main__":
     main()
