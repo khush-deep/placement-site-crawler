@@ -35,7 +35,7 @@ def announcements(all_announcements):
     if len(new_announcements)!=0 and len(all_announcements)!=0:
         msg = '\n'.join(new_announcements)
         print('New Announcement:',msg)
-        send_whatsapp_message('New Announcement', msg)
+        # send_whatsapp_message('New Announcement', msg)
         send_mail('New Announcement', msg)
     all_announcements.extend(new_announcements)
 
@@ -43,7 +43,7 @@ def jobs(all_jobs):
     jobs_button = browser.find_element_by_link_text('Jobs')
     jobs_button.click()
     table = browser.find_element_by_id('Joblist')
-    row_elements = table.find_elements_by_id('trlist')
+    row_elements         = table.find_elements_by_id('trlist')
     latest_jobs = []
     for element in row_elements:
         job_element = element.find_element_by_id('cname1')
@@ -55,8 +55,8 @@ def jobs(all_jobs):
     if len(new_jobs)!=0 and len(all_jobs)!=0:
         msg = '\n'.join(new_jobs)
         print('New Job:',msg)
-        send_whatsapp_message('New Job', msg)
-        send_mail('New Job', msg)
+        # send_whatsapp_message('New Job', msg)
+        send_mail('New Job'+msg, msg)
     all_jobs.extend(new_jobs)
 
 def main():
@@ -69,7 +69,7 @@ def main():
     jobs(all_jobs)
     COUNT+=1
     db.store_data(COUNT, all_announcements, all_jobs)
-    # browser.close()
+    browser.close()
 
 if __name__ == "__main__":
     main()
